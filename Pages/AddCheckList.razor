@@ -1,0 +1,24 @@
+﻿@page "/AddCheckList"
+@using BlazorTestProject.Repositories
+@using BlazorTestProject.Repositories.Interfaces
+@inject IUnityOfWork UnitOfWork
+
+<h3>AddCheckList</h3>
+<span>CheckList Name</span>
+<input @bind="CheckListName" type="text">
+<button @onclick="CreateCheckList">Create Checklist</button>
+
+@code {
+
+    public string CheckListName { get; set; }
+    
+    public void CreateCheckList()
+    {
+        UnitOfWork.CheckLists.Add(new Entities.CheckList
+        {
+            Id = new Guid(),
+            CheckListName = CheckListName
+        });
+        UnitOfWork.Complete();
+    }
+}

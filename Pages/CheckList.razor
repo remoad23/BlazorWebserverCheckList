@@ -1,0 +1,55 @@
+﻿@page "/CheckList"
+@using BlazorTestProject.Repositories
+@using BlazorTestProject.Entities
+@using BlazorTestProject.Repositories.Interfaces
+@using Microsoft.EntityFrameworkCore.ChangeTracking.Internal
+@inject IUnityOfWork UnitOfWork
+
+<h2>CheckList</h2>
+@foreach (Entities.CheckList checkList in CheckLists)
+{
+    <h3>@checkList.CheckListName</h3>
+    <table>
+        <thead>
+        <th>Description</th>
+        <th>Status</th>
+        </thead>
+        @foreach (Entities.Entry entry in UnitOfWork.Entries.Find(e => e.CheckListId.Equals(checkList.Id)))
+            {
+                <tr>
+                    <td>@entry.EntryText</td>
+                    <td>@(entry.IsDone ? " Done" : " In progress")</td>
+                    <td @onclick="() => DeleteEntry(entry.Id)">
+                        <button>Entfernen</button>
+                    </td>
+                </tr>
+            }
+            <AddChecklistEntry EntryAdded="() => this.StateHasChanged()" CheckListId="@checkList.Id"></AddChecklistEntry>
+    </table>
+}
+
+<!-- <AddChecklistEntry EntryAdded="() => this.StateHasChanged()"></AddChecklistEntry> -->
+
+@code {
+    
+    public List<Entities.CheckList> CheckLists { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        CheckLists = UnitOfWork.CheckLists.GetAll().ToList();
+        Console.WriteLine(CheckLists.Count);
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+    }
+
+
+    void DeleteEntry(Guid index)
+    {
+       Entry entry = UnitOfWork.Entries.Find(e => e.Id.ToString().Equals(index.ToString())).FirstOrDefault();
+        UnitOfWork.Entries.Remove(entry);
+    }
+}
