@@ -83,35 +83,28 @@ using BlazorTestProject.Shared;
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\paddy\RiderProjects\BlazorWebserverCheckList\Pages\AddChecklistEntry.razor"
-using System.ComponentModel.DataAnnotations;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 3 "C:\Users\paddy\RiderProjects\BlazorWebserverCheckList\Pages\AddChecklistEntry.razor"
-using BlazorTestProject.Entities;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 4 "C:\Users\paddy\RiderProjects\BlazorWebserverCheckList\Pages\AddChecklistEntry.razor"
+#line 2 "C:\Users\paddy\RiderProjects\BlazorWebserverCheckList\Pages\ShowCheckList.razor"
 using BlazorTestProject.Repositories;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\paddy\RiderProjects\BlazorWebserverCheckList\Pages\AddChecklistEntry.razor"
+#line 3 "C:\Users\paddy\RiderProjects\BlazorWebserverCheckList\Pages\ShowCheckList.razor"
+using BlazorTestProject.Entities;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 4 "C:\Users\paddy\RiderProjects\BlazorWebserverCheckList\Pages\ShowCheckList.razor"
 using CheckListLibrary.Interfaces;
 
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/AddChecklistEntry")]
-    public partial class AddChecklistEntry : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/ShowCheckList")]
+    public partial class ShowCheckList : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -119,35 +112,28 @@ using CheckListLibrary.Interfaces;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 24 "C:\Users\paddy\RiderProjects\BlazorWebserverCheckList\Pages\AddChecklistEntry.razor"
+#line 33 "C:\Users\paddy\RiderProjects\BlazorWebserverCheckList\Pages\ShowCheckList.razor"
        
-
-    [Parameter] 
-    public Guid CheckListId { get; set; }
     
-    
-    public string EntryText = "";
+    public List<CheckList> CheckLists { get; set; }
 
-    [Parameter]
-    public EventCallback EntryAdded { get; set; }
-
-    void SubmitForm()
+    protected override void OnInitialized()
     {
-        Repository.Add(new Entry
-        {
-            Id =  new Guid(),
-            EntryText = EntryText,
-            IsDone = false,
-            CheckListId = CheckListId
-        });
-        Repository.Complete();
-        this.EntryAdded.InvokeAsync(null);
+        base.OnInitialized();
+        CheckLists = CheckListRepository.GetAll().ToList();
+    }
+
+    void DeleteEntry(Guid index)
+    {
+        Entry entry = EntryRepository.Find(e => e.Id.ToString().Equals(index.ToString())).FirstOrDefault();
+        EntryRepository.Remove(entry);
     }
 
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IGenericRepository<Entities.Entry> Repository { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IGenericRepository<CheckList> CheckListRepository { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IGenericRepository<Entry> EntryRepository { get; set; }
     }
 }
 #pragma warning restore 1591

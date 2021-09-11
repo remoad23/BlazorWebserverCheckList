@@ -1,12 +1,12 @@
-﻿@page "/CheckList"
+﻿@page "/ShowCheckList"
 @using BlazorTestProject.Repositories
 @using BlazorTestProject.Entities
-@using BlazorTestProject.Repositories.Interfaces
-@using Microsoft.EntityFrameworkCore.ChangeTracking.Internal
-@inject IUnityOfWork UnitOfWork
+@using CheckListLibrary.Interfaces
+@inject IGenericRepository<Entry> EntryRepository
+@inject IGenericRepository<CheckList> CheckListRepository
 
 <h2>CheckList</h2>
-@foreach (Entities.CheckList checkList in CheckLists)
+@foreach (CheckList checkList in CheckLists)
 {
     <h3>@checkList.CheckListName</h3>
     <table>
@@ -14,7 +14,7 @@
         <th>Description</th>
         <th>Status</th>
         </thead>
-        @foreach (Entities.Entry entry in UnitOfWork.Entries.Find(e => e.CheckListId.Equals(checkList.Id)))
+        @foreach (Entry entry in EntryRepository.Find(e => e.CheckListId.Equals(checkList.Id)))
             {
                 <tr>
                     <td>@entry.EntryText</td>
@@ -32,24 +32,17 @@
 
 @code {
     
-    public List<Entities.CheckList> CheckLists { get; set; }
+    public List<CheckList> CheckLists { get; set; }
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        CheckLists = UnitOfWork.CheckLists.GetAll().ToList();
-        Console.WriteLine(CheckLists.Count);
+        CheckLists = CheckListRepository.GetAll().ToList();
     }
-
-    protected override void OnAfterRender(bool firstRender)
-    {
-        base.OnAfterRender(firstRender);
-    }
-
 
     void DeleteEntry(Guid index)
     {
-       Entry entry = UnitOfWork.Entries.Find(e => e.Id.ToString().Equals(index.ToString())).FirstOrDefault();
-        UnitOfWork.Entries.Remove(entry);
+        Entry entry = EntryRepository.Find(e => e.Id.ToString().Equals(index.ToString())).FirstOrDefault();
+        EntryRepository.Remove(entry);
     }
 }

@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using BlazorTestProject.Entities;
 using BlazorTestProject.Repositories;
-using BlazorTestProject.Repositories.Interfaces;
+using CheckListLibrary.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlazorTestProject
@@ -29,7 +29,7 @@ namespace BlazorTestProject
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IUnityOfWork, UnityOfWork>();
+            services.AddTransient(typeof(IGenericRepository<>),typeof(BlazorRepository<>));
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddDbContext<BlazorContext>(options =>

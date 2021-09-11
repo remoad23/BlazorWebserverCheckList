@@ -2,8 +2,8 @@
 @using System.ComponentModel.DataAnnotations
 @using BlazorTestProject.Entities
 @using BlazorTestProject.Repositories
-@using BlazorTestProject.Repositories.Interfaces
-@inject IUnityOfWork UnitOfWork
+@using CheckListLibrary.Interfaces
+@inject IGenericRepository<Entities.Entry> Repository
 
 @*<EditForm Model="EntryText" OnValidSubmit="SubmitForm">
     <span>Entry</span>
@@ -34,14 +34,14 @@
 
     void SubmitForm()
     {
-        UnitOfWork.Entries.Add(new Entry
+        Repository.Add(new Entry
         {
             Id =  new Guid(),
             EntryText = EntryText,
             IsDone = false,
             CheckListId = CheckListId
         });
-        UnitOfWork.Complete();
+        Repository.Complete();
         this.EntryAdded.InvokeAsync(null);
     }
 }

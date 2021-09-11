@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "v+rIWi8GAAza07zdiqAXjXIrIBH9ZT0Mmu6GPVMluygInElW3ot0WAtVBr0BgSkTbGjOXAgtpkrtakLqHrK8KA==",
+  "dgSpecHash": "4tEW57MrZvfdiklWSLKI/DMoNmtzSR9hzwTuaSJb/6gQbt+BneZCuYe+JFb04+8g1wHbQPZwwNRtNc4oqtnuRA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\paddy\\RiderProjects\\BlazorTestProject\\BlazorTestProject\\BlazorTestProject.csproj",
+  "projectFilePath": "C:\\Users\\paddy\\RiderProjects\\BlazorWebserverCheckList\\BlazorTestProject.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\paddy\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\paddy\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
@@ -32,7 +32,8 @@
     "C:\\Users\\paddy\\.nuget\\packages\\system.collections.immutable\\5.0.0\\system.collections.immutable.5.0.0.nupkg.sha512",
     "C:\\Users\\paddy\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",
     "C:\\Users\\paddy\\.nuget\\packages\\system.diagnostics.diagnosticsource\\5.0.1\\system.diagnostics.diagnosticsource.5.0.1.nupkg.sha512",
-    "C:\\Users\\paddy\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512"
+    "C:\\Users\\paddy\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512",
+    "C:\\Users\\paddy\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.8\\microsoft.netcore.app.host.win-x64.5.0.8.nupkg.sha512"
   ],
   "logs": []
 }

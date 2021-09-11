@@ -1,7 +1,8 @@
 ﻿@page "/AddCheckList"
 @using BlazorTestProject.Repositories
-@using BlazorTestProject.Repositories.Interfaces
-@inject IUnityOfWork UnitOfWork
+@using BlazorTestProject.Entities
+@using CheckListLibrary.Interfaces
+@inject IGenericRepository<CheckList> CheckListRepository
 
 <h3>AddCheckList</h3>
 <span>CheckList Name</span>
@@ -14,11 +15,11 @@
     
     public void CreateCheckList()
     {
-        UnitOfWork.CheckLists.Add(new Entities.CheckList
+        CheckListRepository.Add(new CheckList
         {
             Id = new Guid(),
             CheckListName = CheckListName
         });
-        UnitOfWork.Complete();
+        CheckListRepository.Complete();
     }
 }
