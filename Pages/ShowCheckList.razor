@@ -14,7 +14,7 @@
         <th>Description</th>
         <th>Status</th>
         </thead>
-        @foreach (Entry entry in EntryRepository.Find(e => e.CheckListId.Equals(checkList.Id)))
+        @foreach (Entry entry in checkList.Entries)
             {
                 <tr>
                     <td>@entry.EntryText</td>
@@ -34,10 +34,11 @@
     
     public List<CheckList> CheckLists { get; set; }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         base.OnInitialized();
-        CheckLists = CheckListRepository.GetAll().ToList();
+        var checkListToPass =  await CheckListRepository.GetAll("Entries").ConfigureAwait(false);
+        CheckLists = checkListToPass.ToList();
     }
 
     void DeleteEntry(Guid index)

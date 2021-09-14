@@ -117,10 +117,11 @@ using CheckListLibrary.Interfaces;
     
     public List<CheckList> CheckLists { get; set; }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         base.OnInitialized();
-        CheckLists = CheckListRepository.GetAll().ToList();
+        var checkListToPass =  await CheckListRepository.GetAll("Entries").ConfigureAwait(false);
+        CheckLists = checkListToPass.ToList();
     }
 
     void DeleteEntry(Guid index)
